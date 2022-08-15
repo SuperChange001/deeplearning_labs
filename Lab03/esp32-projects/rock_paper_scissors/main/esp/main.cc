@@ -24,8 +24,8 @@ limitations under the License.
 
 #include "http_stats_client.h"
 
-#define AP_SSID "ES-Air_2G4"
-#define AP_PASSWORD "kqxhjcsrry"
+#define AP_SSID "your ssid"
+#define AP_PASSWORD "password"
 
 
 void tf_main(void)
