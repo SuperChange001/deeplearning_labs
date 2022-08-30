@@ -3,7 +3,7 @@
 
 #include "image_tcp_client.h"
 
-#define HOST_IP_ADDR "192.168.201.204"
+#define HOST_IP_ADDR "192.168.178.41"
 #define PORT 8081
 
 void image_tcp_client_send(int8_t category_index, int8_t score, uint8_t * buf, size_t size) {

@@ -18,6 +18,7 @@ limitations under the License.
 #include "model_settings.h"
 #include "image_tcp_client.h"
 #include <cstdlib>
+#include "driver/gpio.h"
 
 static void image_to_uint8(uint8_t * dest, int8_t * src, size_t image_size) {
     for (size_t i = 0; i < image_size; i++) {
@@ -28,8 +29,23 @@ static void image_to_uint8(uint8_t * dest, int8_t * src, size_t image_size) {
 void RespondToDetection(tflite::ErrorReporter* error_reporter,
                         int8_t category_index, int8_t score, int8_t * image_data, size_t image_size) {
     TF_LITE_REPORT_ERROR(error_reporter, "Category: %s, Score: %d", kCategoryLabels[category_index], score);
-    uint8_t * img_buf = (uint8_t *)malloc(image_size);
-    image_to_uint8(img_buf, image_data, image_size);
-    image_tcp_client_send(category_index, score, img_buf, image_size);
-    free(img_buf);
+    // uint8_t * img_buf = (uint8_t *)malloc(image_size);
+    // image_to_uint8(img_buf, image_data, image_size);
+    // image_tcp_client_send(category_index, score, img_buf, image_size);
+    // free(img_buf);
+
+    if(category_index == 0){
+        // red
+        gpio_set_level(GPIO_NUM_22, 0);
+        gpio_set_level(GPIO_NUM_21, 1);
+    }else if( category_index == 1){
+        // white
+        gpio_set_level(GPIO_NUM_22, 1);
+        gpio_set_level(GPIO_NUM_21, 0);
+    }else{
+        // all off
+        gpio_set_level(GPIO_NUM_22, 1);
+        gpio_set_level(GPIO_NUM_21, 1);
+    }
+
 }

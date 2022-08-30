@@ -21,7 +21,7 @@ def receive_image(con):
 
 def server(port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind(("192.168.201.204", port))
+    s.bind(("192.168.178.41", port))
     s.listen()
     while True: 
         con, addr = s.accept()

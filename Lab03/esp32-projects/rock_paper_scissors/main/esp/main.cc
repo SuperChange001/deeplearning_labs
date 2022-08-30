@@ -20,12 +20,8 @@ limitations under the License.
 #include "freertos/task.h"
 #include "esp_timer.h"
 #include "nvs_flash.h"
-#include "wifi_sta.h"
+#include "driver/gpio.h"
 
-#include "http_stats_client.h"
-
-#define AP_SSID "your ssid"
-#define AP_PASSWORD "password"
 
 
 void tf_main(void)
@@ -45,9 +41,18 @@ void tf_main(void)
 extern "C" void app_main()
 {
   nvs_flash_init();
+
+  // White LED
+  gpio_pad_select_gpio(GPIO_NUM_22);
+  // Red LED
+  gpio_pad_select_gpio(GPIO_NUM_21);
+
+  gpio_set_direction(GPIO_NUM_22, GPIO_MODE_OUTPUT);
+  gpio_set_direction(GPIO_NUM_21, GPIO_MODE_OUTPUT);
+
   
-  wifi_sta_init();
-  wifi_sta_join(AP_SSID, AP_PASSWORD);
+  // wifi_sta_init();
+  // wifi_sta_join(AP_SSID, AP_PASSWORD);
 
   vTaskDelay(pdMS_TO_TICKS(5000));
 
